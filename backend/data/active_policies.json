@@ -1,0 +1,98 @@
+[
+  {
+    "id": "pol_admin_system",
+    "name": "Admin System Management",
+    "path_pattern": "/api/admin/system",
+    "method": "ANY",
+    "allowed_roles": [
+      "Admin"
+    ],
+    "destination_service": "admin-system-service",
+    "request_limit": 20,
+    "time_window_seconds": 60,
+    "enabled": true,
+    "priority": 10,
+    "description": "Restricted administrative operations and system diagnostics"
+  },
+  {
+    "id": "pol_admin_users",
+    "name": "Admin User Directory",
+    "path_pattern": "/api/admin/*",
+    "method": "ANY",
+    "allowed_roles": [
+      "Admin"
+    ],
+    "destination_service": "admin-directory-service",
+    "request_limit": 30,
+    "time_window_seconds": 60,
+    "enabled": true,
+    "priority": 15,
+    "description": "General admin wildcard path for administrative endpoints"
+  },
+  {
+    "id": "pol_student_profile",
+    "name": "Student Profile Service",
+    "path_pattern": "/api/student/profile",
+    "method": "GET",
+    "allowed_roles": [
+      "Admin",
+      "Student"
+    ],
+    "destination_service": "student-profile-service",
+    "request_limit": 15,
+    "time_window_seconds": 60,
+    "enabled": true,
+    "priority": 20,
+    "description": "Access to personalized student profile information"
+  },
+  {
+    "id": "pol_student_results",
+    "name": "Student Exam Results",
+    "path_pattern": "/api/student/{id}/results",
+    "method": "GET",
+    "allowed_roles": [
+      "Admin",
+      "Student"
+    ],
+    "destination_service": "exam-records-service",
+    "request_limit": 5,
+    "time_window_seconds": 60,
+    "enabled": true,
+    "priority": 25,
+    "description": "Parameterized route for specific student examination grade lookup"
+  },
+  {
+    "id": "pol_public_catalog",
+    "name": "Public Course Catalog",
+    "path_pattern": "/api/public/courses",
+    "method": "GET",
+    "allowed_roles": [
+      "Public",
+      "Student",
+      "Admin"
+    ],
+    "destination_service": "course-catalog-service",
+    "request_limit": 50,
+    "time_window_seconds": 60,
+    "enabled": true,
+    "priority": 30,
+    "description": "Public read-only directory of academic courses and descriptions"
+  },
+  {
+    "id": "pol_public_status",
+    "name": "Public Gateway Status",
+    "path_pattern": "/api/public/status",
+    "method": "GET",
+    "allowed_roles": [
+      "Public",
+      "Student",
+      "Admin"
+    ],
+    "destination_service": "system-health-service",
+    "request_limit": 100,
+    "time_window_seconds": 60,
+    "enabled": true,
+    "priority": 40,
+    "description": "Liveness and uptime metrics visible to all roles"
+  }
+]
